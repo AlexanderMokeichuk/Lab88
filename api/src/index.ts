@@ -2,6 +2,7 @@ import cors = require("cors");
 import express from "express";
 import mongoose from "mongoose";
 import config from "./config";
+import usersRouter from "./routers/users";
 
 
 const app = express();
@@ -12,6 +13,8 @@ const localhost = `http://localhost:${port}`;
 app.use(cors());
 app.use(express.json());
 app.use(express.static("./src/public"));
+
+app.use("/users", usersRouter);
 
 const run = async () => {
   await mongoose.connect(config.mongoose.db);
