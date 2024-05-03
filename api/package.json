@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/index.ts",
+    "seed": "ts-node ./src/fixtures.ts",
     "lint": "eslint \"**/*.ts\"",
     "format": "prettier . --write",
     "format:check": "prettier . --check"
