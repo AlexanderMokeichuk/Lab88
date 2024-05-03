@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Avatar,
   Box,
@@ -16,7 +16,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { registration } from './usersThunks';
 import { selectRegisterError } from './usersSlice';
 
-const Register = () => {
+const Register: React.FC = () => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(selectRegisterError);
   const navigate = useNavigate();

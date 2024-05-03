@@ -34,3 +34,17 @@ export interface ValidationError {
 export interface GlobalError {
   error: string;
 }
+
+export interface Post {
+  title: string;
+  description: string | null;
+  image: File | null;
+}
+
+export interface PostApi extends Post {
+  _id: string;
+  date: string;
+  user: {
+    username: string;
+  };
+}

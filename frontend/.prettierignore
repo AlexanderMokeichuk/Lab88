@@ -1,8 +1,0 @@
-node_modules
-.git
-.eslintrc.js
-.prettierrc
-nodemon.json
-README.md
-tsconfig.json
-tsconfig.node.json
