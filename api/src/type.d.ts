@@ -18,10 +18,11 @@ export interface UserMethods {
 
 export type UserModel = Model<UserFront, unknown, UserMethods>;
 
-export interface Post {
+export interface PostFront {
+  user: Types.ObjectId,
   title: string,
-  description: string,
-  image: string,
+  description: string | null,
+  image: string | null,
   date: string,
 }
 
