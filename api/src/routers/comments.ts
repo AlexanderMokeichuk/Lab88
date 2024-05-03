@@ -1,12 +1,12 @@
-import express from "express";
-import auth, {RequestWithUser} from "../middleware/auth";
-import mongoose from "mongoose";
-import {CommentFront, Comments} from "../type";
-import Comment from "../models/Comment";
+import express from 'express';
+import auth, { RequestWithUser } from '../middleware/auth';
+import mongoose from 'mongoose';
+import { CommentFront, Comments } from '../type';
+import Comment from '../models/Comment';
 
 const commentsRouter = express.Router();
 
-commentsRouter.post("/", auth, async (req, res, next) => {
+commentsRouter.post('/', auth, async (req, res, next) => {
   const user = (req as RequestWithUser).user!;
 
   try {
@@ -29,14 +29,14 @@ commentsRouter.post("/", auth, async (req, res, next) => {
   }
 });
 
-commentsRouter.get("/", async (_req, res, next) => {
+commentsRouter.get('/', async (_req, res, next) => {
   try {
-    const comments: Comments[] = await Comment
-      .find()
+    const comments: Comments[] = await Comment.find()
       .populate({
-        path: "user",
+        path: 'user',
         select: 'username -_id',
-      }).exec();
+      })
+      .exec();
 
     return res.send(comments);
   } catch (e) {
