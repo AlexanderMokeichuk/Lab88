@@ -13,6 +13,7 @@ const defaultState: Post = {
   image: null,
 };
 
+
 const PostForm: React.FC = () => {
   const [formState, setFormState] = useState<Post>(defaultState);
   const dispatch = useAppDispatch();

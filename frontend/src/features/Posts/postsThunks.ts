@@ -42,3 +42,15 @@ export const fetchPosts = createAsyncThunk<PostApi[], undefined>(
     }
   },
 );
+
+export const fetchOnePost = createAsyncThunk<PostApi | null, string>(
+  "posts/fetchOnePost",
+  async (id) => {
+    try {
+      const {data: response} = await axiosApi.get<PostApi>(`/posts/${id}`);
+      return response;
+    } catch (e) {
+      return null;
+    }
+  },
+);

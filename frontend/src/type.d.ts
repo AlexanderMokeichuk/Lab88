@@ -41,10 +41,27 @@ export interface Post {
   image: File | null;
 }
 
-export interface PostApi extends Post {
+export interface PostApi {
   _id: string;
+  title: string;
+  description: string,
   date: string;
   user: {
     username: string;
   };
+  image: string | null,
+}
+
+export interface Comment {
+  text: string,
+  post: string,
+}
+
+export interface CommentApi {
+  _id: string,
+  user: {
+    username: string
+  },
+  text: string,
+  date: string,
 }

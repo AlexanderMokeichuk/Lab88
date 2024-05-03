@@ -12,6 +12,7 @@ import {
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { usersReducer } from '../features/Users/usersSlice';
 import { postsReducer } from '../features/Posts/postsSlice.ts';
+import {commentsReducer} from "../features/Comments/commentsSlice.ts";
 
 const userPersistConfig = {
   key: 'store:Lab88',
@@ -21,6 +22,7 @@ const userPersistConfig = {
 
 const rootReducer = combineReducers({
   posts: postsReducer,
+  comments: commentsReducer,
   users: persistReducer(userPersistConfig, usersReducer),
 });
 

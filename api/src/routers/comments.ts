@@ -1,7 +1,7 @@
 import express from 'express';
 import auth, { RequestWithUser } from '../middleware/auth';
 import mongoose from 'mongoose';
-import { CommentFront, Comments } from '../type';
+import { CommentFront } from '../type';
 import Comment from '../models/Comment';
 
 const commentsRouter = express.Router();
@@ -29,9 +29,11 @@ commentsRouter.post('/', auth, async (req, res, next) => {
   }
 });
 
-commentsRouter.get('/', async (_req, res, next) => {
+commentsRouter.get('/:id', async (req, res, next) => {
   try {
-    const comments: Comments[] = await Comment.find()
+    const comments = await Comment.find({ post: req.params.id })
+      .select('text date')
+      .sort({ date: -1 })
       .populate({
         path: 'user',
         select: 'username -_id',

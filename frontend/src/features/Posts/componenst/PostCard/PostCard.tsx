@@ -1,9 +1,10 @@
 import React from "react";
-import {Card, CardContent, CardMedia, Grid} from "@mui/material";
+import {Button, Card, CardContent, CardMedia, Grid} from "@mui/material";
 import {API_URL} from "../../../../constants.ts";
 import {PostApi} from "../../../../type";
 import dayjs from "dayjs";
 import chat from "./../../../../../public/chat.svg";
+import {Link} from "react-router-dom";
 
 interface Props {
   post: PostApi,
@@ -30,9 +31,19 @@ const PostCard: React.FC<Props> = ({post}) => {
             alt="Paella dish"
           />
 
-          <Grid item>
-            <span>{dayjs(post.date).format("DD/MM/YYYY HH:mm")} by <strong>{post.user.username}</strong></span>
-            <p>{post.title}</p>
+          <Grid item sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}>
+            <div>{dayjs(post.date).format("DD/MM/YYYY HH:mm")} by <strong>{post.user.username}</strong></div>
+            <strong>{post.title}</strong>
+          </Grid>
+
+          <Grid item sx={{display: "flex", marginLeft: "auto", marginTop: "auto"}}>
+            <Button variant={"contained"}>
+              <Link to={`/post/${post._id}`} style={{textDecoration: "none"}}>Show more..</Link>
+            </Button>
           </Grid>
         </Grid>
       </CardContent>

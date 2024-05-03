@@ -58,4 +58,20 @@ postsRouter.get('/', async (_req, res, next) => {
   }
 });
 
+postsRouter.get('/:id', async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.id })
+      .select('title date description')
+      .populate('user', 'username -_id');
+
+    if (!post) {
+      return res.status(404).send({ error: 'Not found!' });
+    }
+
+    return res.send(post);
+  } catch (e) {
+    next(e);
+  }
+});
+
 export default postsRouter;

@@ -1,22 +1,28 @@
 import {PostApi} from "../../type";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store.ts";
-import {fetchPosts, sendPostToApi} from "./postsThunks.ts";
+import {fetchOnePost, fetchPosts, sendPostToApi} from "./postsThunks.ts";
 
 interface PostsSlice {
   posts: PostApi[],
+  post: PostApi | null,
   postsLauding: boolean,
 }
 
 const InitialState: PostsSlice = {
   posts: [],
+  post: null,
   postsLauding: false,
 };
 
 const postsSLice = createSlice({
   name: "posts",
   initialState: InitialState,
-  reducers: {},
+  reducers: {
+    resetUser: (state) => {
+      state.post = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.pending, (state) => {
@@ -40,11 +46,19 @@ const postsSLice = createSlice({
     }).addCase(sendPostToApi.rejected, (state) => {
       state.postsLauding = false;
     });
+
+    builder.addCase(fetchOnePost.fulfilled, (state, {payload: post}: PayloadAction<PostApi | null>) => {
+      state.post = post;
+    });
   },
 });
+
+
+export const { resetUser } = postsSLice.actions;
 
 export const postsReducer = postsSLice.reducer;
 
 export const selectPosts = (state: RootState) => state.posts.posts;
-export const selectPostsLauding = (state: RootState) =>
-  state.posts.postsLauding;
+export const selectPost = (state: RootState) => state.posts.post;
+export const selectPostsLauding = (state: RootState) => state.posts.postsLauding;
+
