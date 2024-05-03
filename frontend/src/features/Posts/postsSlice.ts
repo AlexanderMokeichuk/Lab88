@@ -1,7 +1,7 @@
 import {PostApi} from "../../type";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store.ts";
-import {fetchPosts} from "./postsThunks.ts";
+import {fetchPosts, sendPostToApi} from "./postsThunks.ts";
 
 interface PostsSlice {
   posts: PostApi[],
@@ -32,6 +32,14 @@ const postsSLice = createSlice({
       .addCase(fetchPosts.rejected, (state) => {
         state.postsLauding = false;
       });
+
+    builder.addCase(sendPostToApi.pending, (state) => {
+      state.postsLauding = true;
+    }).addCase(sendPostToApi.fulfilled, (state) => {
+      state.postsLauding = false;
+    }).addCase(sendPostToApi.rejected, (state) => {
+      state.postsLauding = false;
+    });
   },
 });
 
