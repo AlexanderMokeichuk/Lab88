@@ -1,23 +1,23 @@
 import express from "express";
-import auth from "../middleware/auth";
+import auth, {RequestWithUser} from "../middleware/auth";
 import {imagesUpload} from "../multer";
 import mongoose from "mongoose";
-import {PostFront} from "../type";
+import {PostFront, Posts} from "../type";
 import Post from "../models/Post";
-import post from "../models/Post";
-import path from "path";
 
 
 const postsRouter = express.Router();
 
 postsRouter.post("/", auth, imagesUpload.single("image"), async (req, res, next) => {
+  const user = (req as RequestWithUser).user!;
+
   if (!req.file && !req.body.description) {
     return res.status(422).send({error: "One of the image or description fields must be filled in!!"});
   }
 
   try {
     const postFront: PostFront = {
-      user: req.body.user,
+      user: user._id,
       title: req.body.title,
       image: req.file ? req.file.filename : null,
       description: req.body.description || null,
@@ -36,9 +36,9 @@ postsRouter.post("/", auth, imagesUpload.single("image"), async (req, res, next)
   }
 });
 
-postsRouter.get("/", async (req, res, next) => {
+postsRouter.get("/", async (_req, res, next) => {
   try {
-    const posts = await Post
+    const posts: Posts[] = await Post
       .find()
       .sort({date: -1})
       .populate({

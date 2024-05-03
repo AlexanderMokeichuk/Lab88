@@ -1,8 +1,8 @@
 import mongoose, {Schema} from "mongoose";
-import {Comment} from "../type";
+import {CommentFront} from "../type";
 
 
-const CommentSchema = new Schema<Comment>({
+const CommentSchema = new Schema<CommentFront>({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
@@ -17,6 +17,10 @@ const CommentSchema = new Schema<Comment>({
     type: String,
     required: true,
   },
+  date: {
+    type: String,
+    required: true,
+  }
 }, {
   versionKey: false,
 });
