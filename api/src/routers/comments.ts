@@ -29,7 +29,7 @@ commentsRouter.post("/", auth, async (req, res, next) => {
   }
 });
 
-commentsRouter.get("/", async (req, res, next) => {
+commentsRouter.get("/", async (_req, res, next) => {
   try {
     const comments: Comments[] = await Comment
       .find()
