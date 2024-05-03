@@ -1,4 +1,4 @@
-import {createTheme} from "@mui/material";
+import { createTheme } from '@mui/material';
 
 const theme = createTheme({
   components: {
@@ -6,9 +6,9 @@ const theme = createTheme({
       defaultProps: {
         variant: 'outlined',
         fullWidth: true,
-      }
-    }
-  }
+      },
+    },
+  },
 });
 
 export default theme;
